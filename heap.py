@@ -1,5 +1,4 @@
 
-
 def make_max_heap(vals):
   """ vals must be an array of (key, value) pairs where the key is used in comparisons """
   heap = [(-1, -1)] + vals

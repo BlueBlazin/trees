@@ -1,4 +1,3 @@
-from tree import print_bst
 
 class Node:
   def __init__(self, value):
@@ -10,20 +9,20 @@ class Node:
 def make_bst(vals):
   root = None
   for val in vals:
-    root = add_node(root, val)
+    root = insert(root, val)
   return root
 
 ########################################################################
-# Add & Find
+# Insert & Find
 ########################################################################
 
-def add_node(root, value):
+def insert(root, value):
   if root is None: return Node(value)
   
   if root.value > value:
-    root.left = add_node(root.left, value)
+    root.left = insert(root.left, value)
   elif root.value < value:
-    root.right = add_node(root.right, value)
+    root.right = insert(root.right, value)
   return root
 
 
@@ -47,7 +46,7 @@ def delete(root, value):
   if   value < root.value: root.left = delete(root.left, value)
   elif value > root.value: root.right = delete(root.right, value)
   else:
-    if root.left if None: return root.right
+    if root.left is None: return root.right
     tmp = root
     root = get_max(root.left)
     root.left = del_max(tmp.left)
@@ -67,4 +66,6 @@ def del_max(root):
 
 if __name__ == "__main__":
   root = make_bst([1, 4, 2, 3, 5, 7])
-  print(find(root, 8))
+  print(find(root, 5))
+  delete(root, 5)
+  print(find(root, 5))

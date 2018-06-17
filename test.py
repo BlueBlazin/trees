@@ -1,4 +1,6 @@
 import numpy as np
+from math import log2, ceil
+from tree import make_print_tree
 
 
 def test_heap(n=100):
@@ -13,9 +15,56 @@ def test_heap(n=100):
     while len(heap) > 1:
       heap_sorted.append(remove_max(heap))
     assert(heap_sorted == sorted_vals)
-  print("All tests for \'heap.py\' passed!")
+  print("All tests passed for \'heap.py\'!")
+
+
+def test_avl():
+  from avl import make_avl_tree
+  # these tests trust root.height
+  for _ in range(50):
+    vals = np.random.uniform(size=500) * 50
+    root = make_avl_tree(vals)
+    assert(root.height <= 1 + ceil(log2(500)))
+
+  for _ in range(25):
+    vals = np.random.uniform(size=1000) * 100
+    root = make_avl_tree(vals)
+    assert(root.height <= 1 + ceil(log2(1000)))
+
+  for _ in range(25):
+    vals = np.random.uniform(size=2100) * 500
+    root = make_avl_tree(vals)
+    assert(root.height <= 1 + ceil(log2(2100)))
+
+  for _ in range(25):
+    vals = np.random.randint(500, size=2000)
+    root = make_avl_tree(vals)
+    assert(root.height <= 1 + ceil(log2(2000)))
+  
+  # these tests don't trust root.height
+  for _ in range(50):
+    vals = np.random.uniform(size=500) * 50
+    root = make_avl_tree(vals)
+    assert(_test_avl_height(root) <= 1 + ceil(log2(500)))
+
+  for _ in range(25):
+    vals = np.random.uniform(size=1000) * 100
+    root = make_avl_tree(vals)
+    assert(_test_avl_height(root) <= 1 + ceil(log2(1000)))
+
+  vals = range(5000)
+  root = make_avl_tree(vals)
+  assert(root.height <= 1 + ceil(log2(5000)))
+  root = make_avl_tree(reversed(vals))
+  assert(root.height <= 1 + ceil(log2(5000)))
+  print("All tests passed for \'avl.py\'!")
+
+def _test_avl_height(root):
+  if root is None: return -1
+  return 1 + max(_test_avl_height(root.left), _test_avl_height(root.right))
 
 
 
 if __name__ == "__main__":
   test_heap()
+  test_avl()
