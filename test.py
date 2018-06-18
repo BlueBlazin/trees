@@ -32,11 +32,6 @@ def test_avl():
     assert(root.height <= 1 + ceil(log2(1000)))
 
   for _ in range(25):
-    vals = np.random.uniform(size=2100) * 500
-    root = make_avl_tree(vals)
-    assert(root.height <= 1 + ceil(log2(2100)))
-
-  for _ in range(25):
     vals = np.random.randint(500, size=2000)
     root = make_avl_tree(vals)
     assert(root.height <= 1 + ceil(log2(2000)))
@@ -64,7 +59,31 @@ def _test_avl_height(root):
   return 1 + max(_test_avl_height(root.left), _test_avl_height(root.right))
 
 
+def test_redblack():
+  from redblack import make_rb_tree
+  for _ in range(50):
+    vals = np.random.uniform(size=500) * 50
+    root = make_rb_tree(vals)
+    assert(_test_redblack_height(root) <= 2 * ceil(log2(500)))
+  
+  for _ in range(50):
+    vals = np.random.uniform(size=1000) * 100
+    root = make_rb_tree(vals)
+    assert(_test_redblack_height(root) <= 2 * ceil(log2(1000)))
+  
+  for _ in range(25):
+    vals = np.random.uniform(size=2000) * 500
+    root = make_rb_tree(vals)
+    assert(_test_redblack_height(root) <= 2 * ceil(log2(2000)))
+  print("All tests passed for \'redblack.py\'!")
+
+def _test_redblack_height(root):
+  if root is None: return -1
+  return 1 + max(_test_redblack_height(root.left), _test_redblack_height(root.right))
+
+
 
 if __name__ == "__main__":
   test_heap()
   test_avl()
+  test_redblack()

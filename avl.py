@@ -1,5 +1,5 @@
-from bst import delete
-from tree import make_print_tree
+from bst import find
+# from tree import make_print_tree
 from random import randint
 
 
@@ -26,18 +26,6 @@ def find(root, value):
   if root.value < value:
     return find(root.right, value)
   return root
-
-
-def _insert(root, value):
-  if root is None: return Node(value, 0)
-  
-  if root.value > value:
-    root.left = _insert(root.left, value)
-  elif root.value < value:
-    root.right = _insert(root.right, value)
-  
-  return root
-
 
 ########################################################################
 # AVL tree functions

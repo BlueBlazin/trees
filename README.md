@@ -11,7 +11,6 @@ Detailed explanations of each data-structure and its implementation at: (COMING 
 - Red black tree
 - AVL tree
 - Splay tree
-- van Emde Boas tree
 - B-Tree
 
 
